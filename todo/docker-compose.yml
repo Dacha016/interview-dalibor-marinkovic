@@ -1,0 +1,23 @@
+version: '3.8'
+services: 
+    api:
+      build:
+        context: ./api
+        dockerfile: Dockerfile
+      ports:
+        - 5001:5001
+
+    mongodb:
+      image: mongo
+      ports:
+        - '27017:27017'
+
+    www:
+      build:
+        context: ./www
+        dockerfile: Dockerfile
+      depends_on:
+        - api
+        - mongodb
+      ports:
+        - 3000:3000
